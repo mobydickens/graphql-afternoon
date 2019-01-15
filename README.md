@@ -11,17 +11,17 @@ In this project, we'll create a graphql back-end for an ecommerce site. Our goal
 We'll start by setting up the skeleton for our GraphQL server. We'll start by creating the type definition for our Products and the Query type definition for retrieving all of our products.
 
 ### Instructions
-* Add a new directory call `schema` to our `server/` directory.
-* Next, add two files to our `schema/` directory
+<!-- * Add a new directory call `schema` to our `server/` directory. -->
+<!-- * Next, add two files to our `schema/` directory
     * A typeDefs.graphql file (Where we'll set our type definitions using GraphQL's Schema Definition Language)
-    * A resolvers.js file (Where we'll write the code that will retrieve the data being requested)
-* Take a look at the `server/models/products.js` file
+    * A resolvers.js file (Where we'll write the code that will retrieve the data being requested) -->
+<!-- * Take a look at the `server/models/products.js` file
     * Notice the data we have available and what type that data is (Int, Boolean, String, Float, ID)
-    * Navigate to our `typeDefs.graphql` file. Create a Product type that matches the structure of our product object. Each property should be marked as required
-* Next, create a Query Type
+    * Navigate to our `typeDefs.graphql` file. Create a Product type that matches the structure of our product object. Each property should be marked as required -->
+<!-- * Next, create a Query Type
     * We'll use the Query Type to describe what we'll be querying for and what the return data should look like.
     * Add a property on our Query Type called products who's return value is an array of Products.
-    * The array should always have at least one Product and should always be an array (denoted by the !)
+    * The array should always have at least one Product and should always be an array (denoted by the !) -->
 
 ### Solution
 
@@ -52,13 +52,13 @@ type Query {
 We now need to write a resolver, which is simply a function that aggregates data in some way, that satisfies the Product Query we defined previously. It should return an array of Products.
 
 ### Instructions
-* Navigate to the `resolver.js` file
-* At the top of the file, require our products model from `models/products.js` and store it to a variable called products
-* Export an object with a single property of Query.
-* Query should be an object that defines each of the methods we'll use to query for data.
+<!-- * Navigate to the `resolver.js` file -->
+<!-- * At the top of the file, require our products model from `models/products.js` and store it to a variable called products -->
+<!-- * Export an object with a single property of Query. -->
+<!-- * Query should be an object that defines each of the methods we'll use to query for data.
     * These methods will match the properties of the query types we defined in our `typeDefs.graphql` file.
     * We defined a single Query called products.
-    * Add a matching resolver function on our Query object called `products` that returns our array of products.
+    * Add a matching resolver function on our Query object called `products` that returns our array of products. -->
 
 ### Solution
 
@@ -88,33 +88,33 @@ module.exports = resolvers;
 In this step we'll setup our first GraphQL server along with the built in graphiql testing tool. We'll also make our first request to Query data from our graphql server.
 
 ### Instructions
-* Navigate to the `index.js` file
-* Start by installing `graphql-yoga` from npm
-* Then, require and destructure `GraphQLServer` from `graphql-yoga`
-* Next, bring your `typeDefs` and `resolver` files into the index.
+<!-- * Navigate to the `index.js` file -->
+<!-- * Start by installing `graphql-yoga` from npm -->
+<!-- * Then, require and destructure `GraphQLServer` from `graphql-yoga` -->
+<!-- * Next, bring your `typeDefs` and `resolver` files into the index.
     * The resolver file can simply be required
     * Node does not know how to read `.graphql` files
         * We'll need to use the built in `fs` (file system) module's `readFileSync` property to read the file as `utf8`.
-        * Set the output equal to a variable called `typeDefs`
-* Create an `options` object with port, endpoint, and playground properties
+        * Set the output equal to a variable called `typeDefs` -->
+<!-- * Create an `options` object with port, endpoint, and playground properties
     * The port should be 3001
     * The endpoint should be `/graphql` This is used to send Queries and Mutations from the client to the server
-    * The playground should be `/graphiql` This is our testing endpoint that enables and makes the graphiql interface viewable in the browser
-* Create your server
+    * The playground should be `/graphiql` This is our testing endpoint that enables and makes the graphiql interface viewable in the browser -->
+<!-- * Create your server
     * Declare a variable called server
     * Set server equal to a `new` GraphQLServer
     * Pass it a configuration object with your typeDefs and resolver as properties.
     * In addition, you can pass a context object that has access to the `req` object from express, but we won't be using it for this project. More on that <a href="https://github.com/prisma/graphql-yoga#constructorprops-props-graphqlserver">here.</a>
     * Start your server by invoking `server.start`
         * Pass it the `options` from above
-        * Pass it a callback to log the port from the options object
-* Test!
+        * Pass it a callback to log the port from the options object -->
+<!-- * Test!
     * Make sure your server is running, if not, debug!
     * Navigate to `http://localhost:3001/graphiql`
     * Explore your `schema` with the interactive docs on the right
     * Query for your products using the pane on the left
     * After you run your Query, you should see an array of products on the right pane
-* From here on out, any time your `Schema` changes, you'll need to refresh your browser so it has the latest version of your Schema
+* From here on out, any time your `Schema` changes, you'll need to refresh your browser so it has the latest version of your Schema -->
 
 
 ### Solution
@@ -177,17 +177,17 @@ server.start(options, () =>
 Now that our server is running, let's create a Query that will allow us to retrieve data on a single Product instead of all of our Products.
 
 ### Instructions
-* Navigate to the `typeDefs.graphql` file
-* Add a property to our Query type called product
-    * It should expect an id as an argument and optionally return a Product
-* Next, navigate to `resolvers.js`
-* Add a resolver on our Query called product
+<!-- * Navigate to the `typeDefs.graphql` file -->
+<!-- * Add a property to our Query type called product
+    * It should expect an id as an argument and optionally return a Product -->
+<!-- * Next, navigate to `resolvers.js` -->
+<!-- * Add a resolver on our Query called product
     * resolver functions receive 3 arguments
         * parent (usually denoted by an _ because we won't be using it)
         * args (an object with any arguments, such as id, that are received by the Query or Mutation)
         * context (if we're using it)
     * product should return a product if one matches the passed in id on the arguments objects, or throw an error if there is no matching product
-* Test in graphiql
+* Test in graphiql -->
 
 
 ### Solution
@@ -247,16 +247,16 @@ type Query {
 For this step, we'll add a cart with Query and Mutation functionalities. You could think of this as CRUD operations in a ReSTful API.
 
 ### Instructions
-* Navigate to the `typeDefs.graphql` file
+<!-- * Navigate to the `typeDefs.graphql` file
     * Here we'll add a quantity property to our Product type
     * It should be optional
-    * It will only exist on Products in the `cart`
-* Add a `cart` Query
-    * It should expect an array of Products that may or may not be empty, but will always be an array.
-* Next, navigate to `resolvers.js`
-* Add a cart variable at the top of the document and default it to an empty array
-* Add a `cart` query that returns the cart
-* Test in graphiql
+    * It will only exist on Products in the `cart` -->
+<!-- * Add a `cart` Query
+    * It should expect an array of Products that may or may not be empty, but will always be an array. -->
+<!-- * Next, navigate to `resolvers.js` -->
+<!-- * Add a cart variable at the top of the document and default it to an empty array -->
+<!-- * Add a `cart` query that returns the cart -->
+<!-- * Test in graphiql -->
 
 
 ### Solution
@@ -319,7 +319,7 @@ type Query {
 Now that we have several ways to Query for data, we'll work on adding methods for updating, deleting, and posting data, otherwise called Muatations in GraphQL.
 
 ### Instructions
-* Navigate to the `typeDefs.graphql` file
+<!-- * Navigate to the `typeDefs.graphql` file
     * Here we'll add a type called `Mutation`
     * `Mutation` should have 3 properties
         * `addProductToCart`
@@ -330,7 +330,7 @@ Now that we have several ways to Query for data, we'll work on adding methods fo
             * Should expect a required return value of an `ID` (We send this back to tell the UI what item was removed)
         * `updateQuantity`
             * Expects an `id` argument of type `ID` and a `change` argument of type `String` (change will be either up or down to increase or decrease the quantity)
-            * Should return a `Product`
+            * Should return a `Product` -->
 
 ### Solution
 
@@ -374,24 +374,24 @@ In this step we'll write the resolver functions that will match up to our `Mutat
 * Navigate to the `resolvers.js` file
     * Add a property whose value should be an object on our exported object called `Mutation`
     * `Mutation` should have 3 properties that are functions
-        * `addProductToCart`
+        <!-- * `addProductToCart`
             * Expects an `id` argument
             * Should check to see if the item is already in the cart
                 * If it is, add one to the quantity
                 * If it isn't, find and clone the product, add a quantity property to the clone, and push the clone into the cart
                 * Throw an error if the `id` is not found in the products
-            * Return the cart
-        * `removeProductFromCart`
+            * Return the cart -->
+        <!-- * `removeProductFromCart`
             * Expects an `id` argument
             * Throw an error if the `id` is not in the cart
             * Should remove the matching product from the cart
-            * Return the `id`
+            * Return the `id` -->
         * `updateQuantity`
-            * Expects an `id` argument and a `change` argument
-            * Throw an error if the `id` is not in the cart
-            * If the `change` is `up` and one to the matching cartItems quantity
+            <!-- * Expects an `id` argument and a `change` argument -->
+            <!-- * Throw an error if the `id` is not in the cart -->
+            <!-- * If the `change` is `up` and one to the matching cartItems quantity
             * If the `change` is `down` and the cartItems quantity is greater than 0, subtract one from the quantity
-            * Return the cartItem
+            * Return the cartItem -->
 * Test in graphiql
 
 ### Solution
